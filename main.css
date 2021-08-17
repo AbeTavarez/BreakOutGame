@@ -4,6 +4,7 @@
 
 body {
     background-color: #0095dd;
+    /* background-image: url('https://apod.nasa.gov/apod/image/2108/NGC6726_6723_2panel.jpg'); */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,5 +67,5 @@ canvas {
 }
 
 .rules.show {
-    transform: translateX(400px);
+    transform: translateX(0);
 }
