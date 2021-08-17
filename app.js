@@ -43,7 +43,8 @@ const drawBall = () => {
     ctx.fillStyle = '#0095dd'; // color to fill the circle
     ctx.fill(); // fills the circle
     ctx.closePath();
-}
+};
+
 
 //* ========== Paddle Props
 const paddle = {
@@ -64,6 +65,42 @@ const drawPaddle = () => {
     ctx.closePath();
 };
 
+//* ========== Create brick Props
+const brinkProps = {
+    w: 70,
+    h: 20,
+    padding: 10,
+    offsetX: 45,
+    offsetY: 60,
+    visible: true
+};
+
+//* ============ Create Bricks
+const bricks = [];
+for (let i = 0; i < brickRowCount; i++){
+    bricks[i] = []; // create 9 arrays inside bricks array [ [], [], ...]
+    for (let j = 0; j < brickColumnCount; j++){
+        // create x value; i = row iteration
+        const x = i * (brinkProps.w + brinkProps.padding) + brinkProps.offsetX;
+        // create y value
+        const y = j * (brinkProps.h + brinkProps.padding) + brinkProps.offsetY;
+        // brick array + [current iteration] + [column] = to an object
+        bricks[i][j] = {x, y, ...brinkProps}; // array with columns and bricks inside
+    }
+}
+console.log(bricks)
+
+const drawBricks = () => {
+    bricks.forEach(column => {
+        column.forEach(brick => {
+            ctx.beginPath();
+            ctx.rect(brick.x, brick.y, brick.w, brick.h);
+            ctx.fillStyle = brick.visible ? '#0095dd' : 'transparent';
+            ctx.fill();
+            ctx.closePath();
+        })
+    })
+}
 
 //* ========= Draw score on canvas
 const drawScore = () => {
@@ -76,6 +113,7 @@ const drawGame = () => {
     drawBall();
     drawPaddle();
     drawScore();
+    drawBricks()
 };
 
 
