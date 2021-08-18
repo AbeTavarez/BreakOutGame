@@ -113,6 +113,39 @@ const movePaddle = () => {
   }
 };
 
+//* ========= Move Ball on canvas
+const moveBall = () => {
+  //take the x value and adds the dx value
+  ball.x += ball.dx;
+  ball.y += ball.dy;
+
+  // Wall collision (X axis)
+  // right side and left size of the X axis
+  if (ball.x + ball.size > canvas.width || ball.x - ball.size < 0) {
+    // make the value negative
+    ball.dx *= -1; // multiply by negative value to make it go back
+  }
+
+  // Wall collision (Y axis)
+  if (
+      ball.y + ball.size > canvas.height ||
+      ball.y - ball.size < 0
+      ) {
+    ball.dy *= -1;
+  }
+  // console.log(ball.x , ball.y)
+
+  // Paddle
+  if (
+    ball.x - ball.size > paddle.x &&
+    ball.x + ball.size < paddle.x + paddle.w &&
+    ball.y + ball.size > paddle.y
+  ) {
+    ball.dy = -ball.speed;
+  }
+};
+
+
 //* ========== Draw game board
 const drawGame = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
@@ -125,6 +158,7 @@ const drawGame = () => {
 //* Update canvas drawing and animation
 const update = () => {
   movePaddle();
+  moveBall();
   // Draw
   drawGame();
   requestAnimationFrame(update)
