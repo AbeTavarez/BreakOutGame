@@ -2,7 +2,9 @@
 const showRulesBtn = document.getElementById("rules-btn");
 const closeBtn = document.getElementById("close-btn");
 const rules = document.getElementById("rules");
+
 let score = 0;
+
 const brickRowCount = 9;
 const brickColumnCount = 5;
 
@@ -20,6 +22,7 @@ const ball = {
   speed: 4,
   dx: 4,
   dy: -4,
+  visible: true
 };
 
 //* ========== Draw ball on canvas
@@ -40,6 +43,7 @@ const paddle = {
   h: 10,
   speed: 8,
   dx: 0,
+  visible: true
 };
 
 //* ============ Draw Paddle
@@ -101,7 +105,7 @@ const movePaddle = () => {
 
   // wall detection
   if (paddle.x + paddle.w > canvas.width) {
-    paddle.x = canvas.width = paddle.w;
+    paddle.x = canvas.width - paddle.w;
   }
 
   if (paddle.x < 0) {
@@ -123,6 +127,7 @@ const update = () => {
   movePaddle();
   // Draw
   drawGame();
+  requestAnimationFrame(update)
 };
 update();
 
